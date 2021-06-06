@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Forsa tamweel</title>
+	
+</h:head>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous"></link>
+
+<div class="container">
+		<h2>Update Agency </h2>
+		<hr>
+		
+
+<h:panelGroup columns="2">
+<h:form>
+
+<tr><td><h:outputText value="Agency Name"></h:outputText></td>
+<td><h:inputText value="#{AgencyController.agencyName}" placeholder="Agency Name" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="City"></h:outputText></td>
+<td><h:inputText value="#{AgencyController.city}" placeholder="Agency Name" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="Address"></h:outputText></td>
+<td><h:inputText value="#{AgencyController.adress}" placeholder="Agency Name" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="Contact"></h:outputText></td>
+<td><h:inputText value="#{AgencyController.contact}" placeholder="Agency Name" class="form-control mb-4 col-4"></h:inputText></td></tr>
+<tr><td><h:outputText value="Email"></h:outputText></td>
+
+<td><h:inputText value="#{AgencyController.email}" placeholder="Agency Name" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<p:growl id="growl" showDetail="true" />
+        <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+
+<tr><td colspan="2"> <h:commandButton value="Update agency"
+action="#{AgencyController.SaveChangesAgency()}" update="growl" class="btn btn-success col-2" /></td></tr>
+
+
+
+</h:form>
+</h:panelGroup> 
+</hr>
+<div align="center">
+<h:link outcome="/admin/welcome" value="Back to agency List"></h:link>
+</div>
+</div>
+
+</html>

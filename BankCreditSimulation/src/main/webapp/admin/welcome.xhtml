@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Forsa tamweel</title>
+	
+</h:head>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function start() {
+        PF('statusDialog').show();
+    }
+
+    function stop() {
+        PF('statusDialog').hide();
+    }
+    //]]>
+</script>
+
+<div class="card">
+    <h:form>
+        <p:growl id="messages"/>
+
+        <p:menubar>
+            <p:submenu label="Export File" icon="pi pi-fw pi-file">
+                
+                <p:menuitem value="PDF" icon="pi pi-fw pi-file-pdf" onclick="#{fileDownloadView.file}"/>
+                <p:divider />
+                <p:menuitem value="Excel" icon="pi pi-fw pi-file-excel"/>
+            </p:submenu>
+
+            
+            <p:menuitem value="Add agency" icon="pi pi-fw pi-plus" outcome="/admin/new_agency">
+                                  
+               </p:menuitem>
+               
+            <p:submenu label="Clients" icon="pi pi-fw pi-users">
+                
+             
+                    <p:menuitem value="Statistics" icon="pi pi-fw pi-chart-line" outcome="/admin/clients_statistics" />
+                    <p:menuitem value="Assign client" icon="pi pi-fw pi-tag" outcome="/admin/assign_client" />
+                
+            </p:submenu>
+            
+            
+
+            <p:divider layout="vertical"/>
+
+
+            <f:facet name="options">
+            
+                <span class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtAgencies').filter()" placeholder="Search"/>
+                    </span>
+                    </f:facet>
+                    <f:facet name="options">
+             <p:commandButton action="#{AgencyController.doLogout()}" value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"></p:commandButton>
+             
+            </f:facet>
+            
+        </p:menubar>
+     
+    </h:form>
+</div>
+
+ <br> </br>
+ 
+ <p:panel header="Statistics">
+ 
+
+ 
+<div class="card">
+   
+    <p:splitter style="height: 300px" styleClass="p-mb-5">
+        <p:splitterPanel styleClass="p-d-flex p-ai-center p-jc-center">
+            <p:barChart model="#{chartJsView.barModel}" style="width: 20%; height: 50px;"/>
+        </p:splitterPanel>
+        <p:splitterPanel styleClass="p-d-flex p-ai-center p-jc-center">
+             <p:donutChart model="#{chartJsView.donutModel}" style="width: 20%; height: 40px;"/>
+        </p:splitterPanel>
+    </p:splitter>
+</div>
+</p:panel>
+ <br> </br>
+
+<div class="card">
+    <h:form id="form">
+    <p:panel header="Export All Data">
+           <h:commandLink>
+	<p:commandButton styleClass="ui-button-raised ui-button-secondary" value="Export as pdf" ajax="false" icon="pi pi-fw pi-file-pdf" style="margin-left:10px;"/>
+	<p:dataExporter type="pdf" postProcessor="#{manager.postProcessPDF}" target="dt-agencies" fileName="agencies"  />
+</h:commandLink>
+<h:commandLink>
+
+	<p:commandButton styleClass="ui-button-raised ui-button-secondary" value="Export as excel" ajax="false" icon="pi pi-fw pi-file-excel" style="margin-left:10px;"/>
+	<p:dataExporter type="xls" postProcessor="#{manager.postProcessXLS}" target="dt-agencies" fileName="agencies" />
+</h:commandLink>
+</p:panel>
+<br></br>
+    
+    <p:growl id="messages" showDetail="true"/>
+    
+        <p:dataTable id="dt-agencies" widgetVar="dtAgencies" value="#{AgencyController.agencies}" var="agency" >
+        
+        
+             
+            <p:column headerText="Num">
+                <h:outputText value="#{agency.id}" />
+            </p:column>
+            <p:column headerText="Agency Name">
+                <h:outputText value="#{agency.agencyName}" />
+            </p:column>
+            <p:column headerText="City">
+                <h:outputText value="#{agency.city}" />
+            </p:column>
+            <p:column headerText="Address">
+                <h:outputText value="#{agency.adress}" />
+            </p:column>
+            <p:column headerText="Contact">
+                <h:outputText value="#{agency.contact}" />
+            </p:column>
+            <p:column headerText="Email">
+                <h:outputText value="#{agency.email}" />
+            </p:column>
+            <p:column headerText="Action" exportable="false">
+            
+                <p:commandButton  icon="pi pi-pencil" styleClass="rounded-button ui-button-success" ajax="false" action="#{AgencyController.updateAgency(agency.id)}"></p:commandButton>
+                <p:commandButton styleClass="rounded-button ui-button-danger" icon="pi pi-trash"  process="@this"
+                                 oncomplete="PF('deleteAgencyDialog').show()">
+                    <f:setPropertyActionListener value="#{agency}" target="#{manageDialog.selectedAgency}"/>
+                </p:commandButton>
+            </p:column>
+            
+             
+        </p:dataTable>
+        
+        <p:confirmDialog widgetVar="deleteAgencyDialog" showEffect="fade" width="300"
+                         message="Delete the agency?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{AgencyController.removeAgency(agency.id)}"
+                             process="@this" oncomplete="PF('deleteAgencyDialog').hide()"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('deleteAgencyDialog').hide()"/>
+        </p:confirmDialog>
+
+    </h:form>
+</div>
+ 
+           
+
+</html>

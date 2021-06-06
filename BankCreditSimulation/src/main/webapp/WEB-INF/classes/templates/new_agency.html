@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Agency Management System</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<h1>Agency Management System</h1>
+		<hr>
+		<h2>Save Agency</h2>
+
+		<form action="#" th:action="@{/saveAgency}" th:object="${agency}"
+			method="POST">
+			<input type="text" th:field="*{agencyName}"
+				placeholder="Agency Name" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{city}"
+				placeholder="City" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{adress}"
+				placeholder="Adress" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{contact}"
+				placeholder="Contact" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{email}"
+				placeholder="E-mail" class="form-control mb-4 col-4">
+				
+				<button type="submit" class="btn btn-success col-2"> Save Agency </button>
+		</form>
+		
+		<hr>
+		
+		<a th:href = "@{/}"> Back to agency List</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Forsa tamweel</title>
+	
+</h:head>
+<div class="card">
+    <h:form>
+        <p:growl id="messages"/>
+
+        <p:menubar>
+            
+            <p:divider layout="vertical"/>
+
+
+            <f:facet name="options">
+            
+                <span class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtAgencies').filter()" placeholder="Search"/>
+                    </span>
+                    </f:facet>
+                    <f:facet name="options">
+             <p:commandButton action="#{SimulationController.doLogout()}" value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"></p:commandButton>
+             
+            </f:facet>
+            
+        </p:menubar>
+     
+    </h:form>
+</div>
+
+ <br> </br>
+
+<div class="card">
+    <h:form id="form">
+    
+    
+    
+    <p:growl id="messages" showDetail="true"/>
+    
+     <p:dataTable id="dt-amortization" widgetVar="dtamortization" value="#{SimulationController.amortization}" var="SimulationController.amortization">
+        
+        
+             
+            <p:column headerText="Parametres">
+            
+               <p:row> <h:outputText value="startDat" /></p:row>
+                <p:row> <h:outputText value="interestRate" /></p:row>
+                 <p:row><h:outputText value="initialBalance" /></p:row>
+                 <p:row><h:outputText value="durationInMonths" /></p:row>
+                 <p:row><h:outputText value="futureValue" /></p:row>
+                <p:row> <h:outputText value="paymentType" /></p:row>
+                 <p:row><h:outputText value="monthlyPayment" /></p:row>
+              </p:column>
+              
+              <p:column headerText="value">
+           
+                <p:row><h:outputText value="#{SimulationController.amortization.startDate}" /></p:row>
+ 
+          
+               <p:row> <h:outputText value="#{SimulationController.amortization.initialBalance}" /></p:row>
+               <p:row> <h:outputText value="#{SimulationController.amortization.interestRate}" /></p:row>
+            
+               <p:row> <h:outputText value="#{SimulationController.amortization.durationInMonths}" /></p:row>
+          
+            
+               <p:row> <h:outputText value="#{SimulationController.amortization.futureValue}" /></p:row>
+                <p:row><h:outputText value="#{SimulationController.amortization.monthlyPayment}" /></p:row>
+          		<p:row><h:outputText value="#{SimulationController.amortization.paymentType}" /></p:row>
+          		
+            </p:column>
+           </p:dataTable>
+     
+           <p:panel header="Export All Data">
+           <h:commandLink>
+	<p:commandButton styleClass="ui-button-raised ui-button-secondary" value="Export as pdf" ajax="false" icon="pi pi-fw pi-file-pdf" style="margin-left:10px;"/>
+	<p:dataExporter type="pdf" postProcessor="#{manager.postProcessPDFSimulation}" target="dt-payments" fileName="simulation"  />
+</h:commandLink>
+</p:panel>
+<br></br> 
+             <p:dataTable id="dt-payments" widgetVar="dtpayments" value="#{SimulationController.amortization.paymentList}" var="payment" showGridlines="true">
+        
+            <p:column headerText="Payment Number">
+                <h:outputText value="#{payment.paymentNumber}" />
+            </p:column>
+            
+            <p:column headerText="Payment Date">
+                <h:outputText value="#{payment.paymentDate}" ><f:convertDateTime pattern="dd/MM/yyyy " /></h:outputText>
+            </p:column>
+            
+            <p:column headerText="Credit Balance">
+                <h:outputText value="#{payment.balance}"><f:convertNumber pattern="#0.00" /></h:outputText>
+            </p:column>
+            <p:column headerText="Monthly payment">
+                <h:outputText value="#{payment.principalPaid}" ><f:convertNumber pattern="#0.00" /></h:outputText>
+            </p:column>
+            <p:column headerText="Interest Paid">
+                <h:outputText value="#{payment.interestPaid}" ><f:convertNumber pattern="#0.00" /></h:outputText>
+            </p:column>
+            <p:column headerText="Accumulated Interest">
+                <h:outputText value="#{payment.accumulatedInterest}" ><f:convertNumber pattern="#0.00" /></h:outputText>
+            </p:column>
+           
+            
+        </p:dataTable>
+        
+      
+    </h:form>
+</div>
+ 
+           
+
+</html>

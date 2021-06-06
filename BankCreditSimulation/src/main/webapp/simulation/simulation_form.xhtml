@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+template="/template/template.xhtml">
+<ui:param name="page_name" value="Accueil" />
+<ui:define name="content">
+<!--BEGIN : TP1 JSF Introduction Login -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous"></link>
+	
+	
+
+<div class="container">
+		<h1>Simulation Form </h1>
+		<hr>
+		
+ <h:panelGroup>
+<h:form>
+ <div align="right">
+|<h:commandLink value="LogOut" action="#{SimulationController.doLogout()}" /></div>
+</h:form>
+</h:panelGroup>
+
+<h:panelGroup columns="2">
+<h:form>
+
+<tr><td><h:outputText value="start Date"></h:outputText></td>
+<td><h:inputText value="#{SimulationController.startDate}" placeholder="start Date" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="interest Rate"></h:outputText></td>
+<td><h:inputText value="#{SimulationController.interestRate}" placeholder="interest Rate" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="initial Balance"></h:outputText></td>
+<td><h:inputText value="#{SimulationController.initialBalance}" placeholder="initial Balance" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="duration In Months"></h:outputText></td>
+<td><h:inputText value="#{SimulationController.durationInMonths}" placeholder="duration In Months" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="future Value"></h:outputText></td>
+<td><h:inputText value="#{SimulationController.futureValue}" placeholder="future Value" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td><h:outputText value="payment Type"></h:outputText></td>
+<td><h:inputText value="#{SimulationController.paymentType}" placeholder="payment Type" class="form-control mb-4 col-4"></h:inputText></td></tr>
+
+<tr><td colspan="2"> <h:commandButton value="Simulate"
+action="#{SimulationController.doSimulate()}" class="btn btn-success col-2" /></td>
+<td colspan="2"> <h:commandButton value="Reset"
+action="submit" class="btn btn-secondary col-2" /></td>
+</tr>
+
+
+
+
+</h:form>
+</h:panelGroup> 
+</hr>
+
+</div>
+
+</ui:define>
+</ui:composition>

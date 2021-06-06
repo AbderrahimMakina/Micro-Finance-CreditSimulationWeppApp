@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Agencies Management System</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+	
+<script src="https://kit.fontawesome.com/584bd4d402.js" crossorigin="anonymous"></script>
+
+	
+</head>
+<body>
+
+<div class="container my-2">
+  <h1> FORSA tamweel's Agencies
+  <a th:href="@{'/createExcel'}" style="float:right;"><img th:src="@{/images/png-excel.png}" style="width:40px; margin-left:10px;"> </a>
+  <a th:href="@{'/createPdf'}" style="float:right;"><img th:src="@{/images/pdf-icon.png}" style="width:40px; margin-left:10px;"> </a>
+  
+  </h1>
+  
+   <a th:href = "@{/showNewAgencyForm}" class="btn btn-success btn-sm mb-3"> Add Agency </a>
+    <div align="right">
+   <div> 
+   <form th:action ="@{/}">
+   Filter:
+   <input type="text" name="keyword" th:value ="${keyword}" required />
+   &nbsp;
+   <input type="submit" value ="Search" />
+   &nbsp;
+   <input type="button" value ="clear" onclick="clearFilter()" /> 
+   </form> </div>
+   </div></br>
+   <table border="1" class = "table table-striped table-responsive-md" > 
+      <thead>
+         <tr>
+              <th> Num </th>
+              <th> Agency Name </th>
+              <th> City </th>
+              <th> Address </th>
+              <th> Contact </th>
+              <th> E-mail </th>
+              <th> Action </th>
+         </tr>
+      </thead>
+      <body>
+          <tr th:each="agency : ${listAgencies}">
+                 <td th:text="${agency.id}"> </td>
+                  <td th:text="${agency.agencyName}"> </td>
+                 <td th:text="${agency.city}"> </td>
+                 <td th:text="${agency.adress}"> </td>
+                 <td th:text="${agency.contact}"> </td>
+                 <td th:text="${agency.email}"> </td>
+          
+                 <td> <a th:href="@{/showFormForUpdate/{id}(id=${agency.id})}" class="btn btn-primary" ><i class="fas fa-edit" ></i></a>
+					    <a th:href="@{/deleteAgency/{id}(id=${agency.id})}" class="btn btn-danger " ><i class="fas fa-trash-alt"></i></a>
+					</td>
+           </tr>
+                 
+         </body>
+     </table>
+     <div align="center">
+     <a th:href="@{/displayBarGraph}">Bar-Graph</a><br/>
+     <a th:href="@{/displayPieChart}">Pie-Chart</a>
+     </div>
+   </div>
+   <script type="text/javascript">
+   function clearFilter(){
+	   window.location = '/';
+   }
+   </script>
+ </body>
+</html>

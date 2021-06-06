@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: piProjet
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: abder
+Implementation-Vendor-Id: com.example
+Build-Jdk: 1.8.0_202
+Implementation-URL: https://spring.io/projects/spring-boot/piProjet
+Created-By: Maven Integration for Eclipse
+
